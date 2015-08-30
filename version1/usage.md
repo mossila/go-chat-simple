@@ -4,8 +4,7 @@
 ## รอรับ connection ##
 ใช้ package `net` เปิดรอรับ connecion ด้วยท่านี้  ถ้าเกิดว่ามี error ก็ให้ log ออกมาและ defer ไว้ว่าถ้าจบ function นี้ก็ให้ปิด socket ด้วย
 
-```
-#!golang
+```go
 
 l, err := net.Listen("tcp", ":1234")
 if err != nil {
@@ -16,14 +15,12 @@ defer l.Close()
 
 ## client ต่อเข้ามา ##
 เมื่อมี client ต่อเข้ามาจะเข้ามาผ่าน `l.Accept()` โดนเราจะได้ของออกมาเป็น connection และ error
-```
-#!golang
+```go
 conn, err := l.Accept()
 ```
 
 readline ที่ client ส่งเข้ามาด้วย bufio และ function ReadString
-```
-#!golang
+```go
 msg, err := bufio.NewReader(conn).ReadString('\n')
 ```
 
@@ -34,13 +31,10 @@ conn.Close()
 
 ## รองรับหลาย connecion ##
 ครอบ `l.Accept` ด้วย `for{}`
-```
-#!golang
+```go
 for {
     conn, _ := l.Accept()
-    for {
-        //readline
-    }
+    //readline
 }
 ```
 
@@ -58,24 +52,24 @@ go run main.go
 telnet localhost 1234
 ```
 
-```
+```bash
 $ go run main.go
 Hello I am client
 ```
 
-```
-➜  version1 git:(master) ✗ telnet localhost 1234
+```bash
+$ telnet localhost 1234
+$
 Trying ::1...
 Connected to localhost.
 Escape character is '^]'.
 Hello I am client.
 Connection closed by foreign host.
-➜  version1 git:(master) ✗ telnet localhost 1234
+$
+$ telnet localhost 1234
 Trying ::1...
 Connected to localhost.
 Escape character is '^]'.
 Hello I am client 2
 Connection closed by foreign host.
-
-
 ```
