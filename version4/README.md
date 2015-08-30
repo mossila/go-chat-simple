@@ -63,6 +63,8 @@ func main() {
 ```go
 import "os"
 func main() {
-    port := ":" + os.Args[1]
+    port := os.Args[1]
+    //port จะส่งเป็น `:1234`, `1234` ก็ได้
     ChatServer(port)
 }
+```

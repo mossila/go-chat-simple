@@ -41,6 +41,6 @@ func ChatServer(port string) {
 }
 
 func main() {
-	port := ":" + os.Args[1]
+	port := os.Args[1]
 	ChatServer(port)
 }
