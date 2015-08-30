@@ -19,11 +19,16 @@ func main() {
 			log.Fatal(err)
 		}
 
-		msg, err := bufio.NewReader(conn).ReadString('\n')
-		if err != nil {
-			fmt.Println(err.Error())
-		}
-		fmt.Print(msg)
-		conn.Close()
+		go func(c net.Conn) {
+			defer c.Close()
+			for {
+				msg, err := bufio.NewReader(c).ReadString('\n')
+				if err != nil {
+					fmt.Println(err.Error())
+					break
+				}
+				fmt.Print(msg)
+			}
+		}(conn)
 	}
 }
