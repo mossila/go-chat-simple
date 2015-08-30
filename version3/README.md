@@ -14,7 +14,7 @@ go func() { //แตกการทำงานออกไป
 } ()// () คือการเรียกใช้งาน
 ```
 
-และแยก connection ของแต่ละ client ให้ handle กันเองใน `func` ที่แตกออกไปด้วย
+และแยก connection ของแต่ละ client ให้ handle กันเองใน `func` ที่แตกออกไปด้วย goroutine
 
 ```go
 go func(c net.Conn) { //ส่งเข้าไปในชื่อใหม่ว่า c
